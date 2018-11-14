@@ -28,9 +28,9 @@ def get_events():
     events['sku'] = events['sku'].map(lambda x: float(x))
     return events
 
-def get_features_iniciales(events):
+def get_features_iniciales(events,pivot):
     """Recibe todos los eventos y devuelve un dataframe con los features iniciales"""
-    features_iniciales = events.pivot_table(index='person', columns='event', values='timestamp', aggfunc='count', fill_value=0)
+    features_iniciales = events.pivot_table(index='person', columns=pivot, values='timestamp', aggfunc='count', fill_value=0)
     features_iniciales.columns = features_iniciales.columns.astype('object')
     features_iniciales.reset_index(inplace=True)
     return features_iniciales
