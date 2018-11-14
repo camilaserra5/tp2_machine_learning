@@ -40,8 +40,9 @@ def add_features(events, features, on= 'person', how = 'left'):
     """Hace un merge de features a events"""
     return pd.merge(events, features, on=on, how = how)
 
-def merge_features(events, list):
-    feature_final = events
+def merge_features(list):
+    feature_final = list[0]
+    list.pop(0)
     for features in list:
         feature_final = add_features(feature_final,features)
     return feature_final
