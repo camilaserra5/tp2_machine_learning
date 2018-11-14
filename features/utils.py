@@ -22,6 +22,7 @@ def get_events():
     events['screen_resolution'] = pd.Categorical(events['screen_resolution'])
     events['operating_system_version'] = pd.Categorical(events['operating_system_version'])
     events['browser_version'] = pd.Categorical(events['browser_version'])
+    events['month'] = events['timestamp'].dt.month
     events['day'] = events['timestamp'].dt.day
     events['hora'] = events['timestamp'].dt.hour
     events['sku'] = events['sku'].fillna(0)
@@ -38,3 +39,9 @@ def get_features_iniciales(events,pivot):
 def add_features(events, features, on= 'person', how = 'left'):
     """Hace un merge de features a events"""
     return pd.merge(events, features, on=on, how = how)
+
+def merge_features(events, list):
+    feature_final = events
+    for features in list:
+        feature_final = add_features(feature_final,features)
+    return feature_final
